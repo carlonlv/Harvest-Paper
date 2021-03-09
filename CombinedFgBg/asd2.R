@@ -89,7 +89,7 @@ for (i in names(sim_setting_list)) {
                        machines_full_indicator,
                        heart_beats_percent,
                        bins,
-                       cores = 1,
+                       cores = parallel::detectCores(),
                        write_type = "summary",
                        result_loc = "~/Documents/CombinedFgBg/FgModels/")
   }
