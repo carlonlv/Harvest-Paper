@@ -1,14 +1,14 @@
 library(DataCenterSim)
 
-#load("~/google_2019_data.rda")
+load("~/google_2019_data.rda")
 
-#load("~/microsoft_10000.rda")
+load("~/microsoft_10000.rda")
 
-#microsoft_max_10000 <- microsoft_max_10000[1:3000, c(1:2016)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638)]]
-#microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:2016)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638)]]
+microsoft_max_10000 <- microsoft_max_10000[1:3000, c(1:2016)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638)]]
+microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:2016)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638)]]
 
-#load("~/microsoft_generated_data_2000.rda")
-#microsoft_generated_data_2000 <- microsoft_generated_data_2000[1:(3000 * 30),]
+load("~/microsoft_generated_data_2000.rda")
+microsoft_generated_data_2000 <- microsoft_generated_data_2000[1:(3000 * 30),]
 
 bins <- c(0, 1, 3, 5, 7, 11, 15, 19, 29, 39, 42, 74, 105)
 
@@ -81,7 +81,7 @@ for (i in names(sim_setting_list)) {
                        param_setting_pred,
                        list(),
                        microsoft_max_10000,
-                       microsoft_avg_10000,
+                       NULL,
                        google_2019_data[, 6],
                        google_2019_data[,1:5],
                        sim_length,
@@ -89,7 +89,7 @@ for (i in names(sim_setting_list)) {
                        machines_full_indicator,
                        heart_beats_percent,
                        bins,
-                       cores = parallel::detectCores(),
+                       cores = 1,
                        write_type = "summary",
                        result_loc = "~/Documents/CombinedFgBg/FgModels/")
   }
