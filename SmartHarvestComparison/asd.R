@@ -18,7 +18,7 @@ additional_setting <- list("cut_off_prob" = cut_off_prob, "window_type_for_reg" 
 
 bg_param_setting <- expand.grid("granularity" = granularity, "window_size" = window_size, stringsAsFactors = FALSE)
 bg_param_setting <- cbind(bg_param_setting,
-                          data.frame(class = "MULTINOM", name = "Multinomial", train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
+                          data.frame(class = "MULTINOM", name = "Multinomial", train_policy = "fixed", train_size = 2000 * 30, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
 bg_param_setting$window_size_for_reg <- bg_param_setting$window_size
 d <- run_sim(bg_param_setting, additional_setting, microsoft_generated_data_2000,
              list("max" = microsoft_generated_data_2000, "avg" = microsoft_generated_data_2000, "min" = microsoft_generated_data_2000, "sd" = microsoft_generated_data_2000, "median" = microsoft_generated_data_2000),
