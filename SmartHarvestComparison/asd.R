@@ -1,7 +1,5 @@
 library(DataCenterSim)
 library(dplyr)
-library("DataCenterSim")
-library("dplyr")
 
 load("~/microsoft_generated_data_2000.rda")
 microsoft_generated_data_2000 <- microsoft_generated_data_2000[1:(3000 * 30),]

@@ -1,7 +1,5 @@
 library(DataCenterSim)
 library(dplyr)
-library("DataCenterSim")
-library("dplyr")
 
 load("~/microsoft_10000.rda")
 
