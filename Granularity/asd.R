@@ -8,8 +8,7 @@ microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:3019)[-c(286,290,328,380,
 
 granularity <- c(100 / 16, 100 / 32,  100 / 48, 100 / 64)
 
-## Finding best predictor using ARIMA, LM, Markov
-window_size <- 1
+window_size <- c(1, 10, 15, 20)
 
 cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05)
 
