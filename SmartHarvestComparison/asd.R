@@ -1,8 +1,8 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/microsoft_generated_data_2000.rda")
-microsoft_generated_data_2000 <- microsoft_generated_data_2000[1:(3000 * 30),]
+load("~/microsoft_generated_data_3000.rda")
+microsoft_generated_data_3000 <- microsoft_generated_data_3000[1:(3000 * 30),]
 
 window_size <- c(1, 5, 10, 15, 20, 25) * 30
 
@@ -18,8 +18,8 @@ bg_param_setting <- expand.grid("granularity" = granularity, "window_size" = win
 bg_param_setting <- cbind(bg_param_setting,
                           data.frame(class = "MULTINOM", name = "Multinomial", train_policy = "fixed", train_size = 2000 * 30, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
 bg_param_setting$window_size_for_reg <- bg_param_setting$window_size
-d <- run_sim(bg_param_setting, additional_setting, microsoft_generated_data_2000,
-             list("max" = microsoft_generated_data_2000, "avg" = microsoft_generated_data_2000, "min" = microsoft_generated_data_2000, "sd" = microsoft_generated_data_2000, "median" = microsoft_generated_data_2000),
+d <- run_sim(bg_param_setting, additional_setting, microsoft_generated_data_3000,
+             list("max" = microsoft_generated_data_3000, "avg" = microsoft_generated_data_3000, "min" = microsoft_generated_data_3000, "sd" = microsoft_generated_data_3000, "median" = microsoft_generated_data_3000),
              cores = parallel::detectCores(),
              write_type = c("charwise", "paramwise"),
              plot_type = "none",
