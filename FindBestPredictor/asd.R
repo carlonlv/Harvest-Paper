@@ -3,8 +3,8 @@ library(dplyr)
 
 load("~/microsoft_10000.rda")
 
-microsoft_max_10000 <- microsoft_max_10000[1:3000, c(1:2016)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638)]]
-microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:2016)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638)]]
+microsoft_max_10000 <- microsoft_max_10000[1:3000, c(1:3019)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638,2021,3012,3018)]]
+microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:3019)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638,2021,3012,3018)]]
 
 
 ## Finding best predictor using ARIMA, LM, Markov
@@ -37,5 +37,5 @@ d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, list("av
 bg_param_setting <- data.frame(class = "MARKOV", name = "MarkovX(Max12)", window_size = window_size, granularity = 0, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
 d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, microsoft_max_10000, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/FindBestPredictor/Markov/")
 
-#bg_param_setting <- data.frame(class = "LM", name = "LM(Avg.Max12)", window_size = window_size, window_size_for_reg = window_size, window_type_for_reg = "avg", granularity = 0, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
-#d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, list("avg" = microsoft_avg_10000, "max_12" = microsoft_max_10000), cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/FindBestPredictor/LM/")
+bg_param_setting <- data.frame(class = "LM", name = "LM(Avg.Max12)", window_size = window_size, window_size_for_reg = window_size, window_type_for_reg = "avg", granularity = 0, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
+d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, list("avg" = microsoft_avg_10000, "max_12" = microsoft_max_10000), cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/FindBestPredictor/LM/")
