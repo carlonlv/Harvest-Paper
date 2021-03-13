@@ -17,9 +17,9 @@ cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05)
 
 additional_setting <- list("cut_off_prob" = cut_off_prob)
 
-## Baseline max to max, same window sizes
-bg_param_setting <- data.frame(class = "ARIMA", name = "AR1", window_size = window_size, granularity = 0, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
-d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/FindBestPredictor/AR1/")
+bg_param_setting <- expand.grid(granularity = granularity, window_size = window_size, stringsAsFactors = FALSE)
+bg_param_setting <- data.frame(class = "ARIMA", name = "AR1", train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
+d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/Granularity/AR1/")
 
-bg_param_setting <- data.frame(class = "MARKOV", name = "Markov", window_size = window_size, granularity = 0, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
-d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/FindBestPredictor/Markov/")
+bg_param_setting <- data.frame(class = "MARKOV", name = "Markov", train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
+d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/Granularity/Markov/")
