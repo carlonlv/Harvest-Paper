@@ -8,7 +8,7 @@ microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:3019)[-c(286,290,328,380,
 
 granularity <- c(100 / 16, 100 / 32,  100 / 48, 100 / 64)
 
-window_size <- c(1, 10, 20, 30, 40, 50)
+window_size <- c(10, 20, 30, 40, 50, 1)
 
 cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05)
 
@@ -23,7 +23,7 @@ bg_param_setting <- cbind(bg_param_setting, data.frame(class = "ARIMA", name = "
 
 ## MLE
 additional_setting <- list("cut_off_prob" = cut_off_prob, "outlier_type" = outlier_type, "outlier_prediction" = "Categorical", "outlier_prediction_update_param" = outlier_prediction_update_param)
-d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = 1, write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/Outlier Analysis/AR1/")
+d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/Outlier Analysis/AR1/")
 
 ## Bayesian with Dirichlet prior
 additional_setting <- list("cut_off_prob" = cut_off_prob, "outlier_type" = outlier_type, "outlier_prediction" = "Categorical-Dirichlet", "outlier_prediction_update_param" = outlier_prediction_update_param)
