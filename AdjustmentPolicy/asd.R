@@ -12,7 +12,7 @@ window_size <- c(1, 10, 15, 20, 30)
 
 cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05)
 
-react_speed <- c("1,1", "1,2", "1,3", "2,1", "2,2", "2,3", "2,4")
+react_speed <- c("2,4", "2,5")
 
 additional_setting <- list("cut_off_prob" = cut_off_prob)
 
