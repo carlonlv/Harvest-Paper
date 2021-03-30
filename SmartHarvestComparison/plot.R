@@ -1,24 +1,25 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/GitHub/SimulationResult/SmartHarvestComparison/Multinom/"
+path = "~/Documents/GitHub/SimulationResult/SmartHarvestComparison/"
 
 
-result_files <- list.files(path, pattern = "Paramwise*", full.names = TRUE, recursive = TRUE)
+result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
 ## Baseline max to max, same window sizes
-
-## granulaity of 100 / 8
+window_size <- 750
 overall_df <- data.frame()
 for (i in result_files) {
-  if (grepl(paste0("granularity-", 100 / 8), i)) {
+  if (grepl(paste0("window_size-", window_size,","), i)) {
     a <- read.csv(i)
-    a <- a[, c("trace_name", "quantile", grep("score", colnames(a), value = TRUE))]
+    a <- a[, c("granularity", "window_size", "quantile", grep("score", colnames(a), value = TRUE))]
     overall_df <- rbind(overall_df, a)
   }
 }
 
-View(DataCenterSim:::check_score_param(1 - unique(overall_df$quantile), overall_df))
-
-plot_sim_paramwise(overall_df, 0.99,
-                   "Multinomial Model with 8 Cores", path)
+plot_sim_charwise(overall_df,
+                  mapping = list("color" = "granularity"),
+                  adjusted = FALSE,
+                  point_or_line = NA,
+                  name = paste0("Different Number of cores at Window Size of ", window_size / 30, " with Multinomal"),
+                  path)

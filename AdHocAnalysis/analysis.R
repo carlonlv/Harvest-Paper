@@ -1,7 +1,8 @@
 library(DataCenterSim)
 library(dplyr)
+library(ggplot2)
 
-library(nnet)
+library(glmnet)
 
 load("~/Documents/PDSF Dataset/microsoft_traces_labels.rda")
 
@@ -10,36 +11,50 @@ path = "~/Documents/GitHub/SimulationResult/AdHocAnalysis/"
 result_files_prediction_statistics <- list.files(path, pattern = "Paramwise Prediction Statistics", full.names = TRUE, recursive = TRUE)
 result_files_prediction_quantiles <- list.files(path, pattern = "Paramwise Simulation", full.names = TRUE, recursive = TRUE)
 
-prediction_statistics <- read.csv(result_files_prediction_statistics, row.names = 1)
-prediction_quantiles <- read.csv(result_files_prediction_quantiles, row.names = 1)
+## Window Size, Granularity
+window_size <- c(10, 20, 30, 40, 50)
+granularity <- 3.125
 
-quant <- unique(prediction_quantiles$quantile)
-classfied_traces <- label_performance_trace(prediction_quantiles, prediction_statistics, 1 - 0.95)
+traces_removed <- data.frame()
+score_change <- data.frame()
 
-classfied_traces$predict_info_statistics <- classfied_traces$predict_info_statistics[, -which(colnames(classfied_traces$predict_info_statistics) == "trace_name")]
+for (j in 1:length(window_size)) {
+  locator <- c(paste0("window_size-", window_size[j], ","), paste0("granularity-", granularity, ","))
+  string_constraints_statistics <- result_files_prediction_statistics
+  string_constraints_quantiles <- result_files_prediction_quantiles
+  for (i in locator) {
+    string_constraints_statistics <- grep(i, string_constraints_statistics, value = TRUE)
+    string_constraints_quantiles <- grep(i, string_constraints_quantiles, value = TRUE)
+  }
 
-summarise_statistics.0.95 <-
-  dplyr::group_by(classfied_traces$predict_info_statistics, label.0.95) %>%
-  summarise_all(mean)
+  if (length(string_constraints_statistics) != 1 | length(string_constraints_quantiles) != 1) {
+    stop("Constraints are not unique.")
+  }
 
-table(classfied_traces$predict_info_statistics$label.0.95)
+  prediction_statistics <- read.csv(string_constraints_statistics, row.names = 1)
+  prediction_quantiles <- read.csv(string_constraints_quantiles, row.names = 1)
 
-prediction_statistics <- read.csv(result_files_prediction_statistics, row.names = 1)
-prediction_quantiles <- read.csv(result_files_prediction_quantiles, row.names = 1)
+  cut_off_prob <- 1 - 0.9999
+  target <- 0.99
+  labeled_prediction_information <- label_performance_trace(prediction_quantiles, cut_off_prob, target = target, predict_info_statistics = prediction_statistics)
 
-quant <- unique(prediction_quantiles$quantile)
-classfied_traces <- label_performance_trace(prediction_quantiles, prediction_statistics, 1 - 0.99)
+  prediction_quantiles <- labeled_prediction_information$predict_info_quantiles
+  prediction_statistics <- labeled_prediction_information$predict_info_statistics
 
-summarise_statistics.0.99 <-
-  dplyr::group_by(classfied_traces$predict_info_statistics, label.0.99) %>%
-  summarise_all(mean)
+  removal_information <- calc_removal_to_reach_target(prediction_quantiles, cut_off_prob, target = target, adjustment = T)
+  traces_removed <- rbind(traces_removed, data.frame("trace_removed" = removal_information$trace_removed, "window_size" = window_size[j], "granularity" = granularity))
+  removal_information$score_change[, "window_size"] <- window_size[j]
+  removal_information$score_change[, "num_traces_removed"] <- 0:(nrow(removal_information$score_change) - 1)
+  removal_information$score_change[, "granularity"] <- granularity
+  score_change <- rbind(score_change, removal_information$score_change)
+}
+
+plt <- ggplot2::ggplot(score_change, ggplot2::aes(x = num_traces_removed, y = score1_adj.n, colour = factor(window_size))) +
+  ggplot2::geom_path(na.rm = TRUE) +
+  ggplot2::ylab("Score1 After Removal") +
+  ggplot2::xlab("Number of Traces Removed") +
+  ggplot2::theme_bw() +
+  ggsci::scale_color_ucscgb(name = "window size") +
+  ggplot2::theme(legend.position = c(0.25, 0.75), legend.background = ggplot2::element_rect(fill = "white", color = "black"))
 
 
-#prcomp(classfied_traces$predict_info_statistics[1:24])
-
-
-
-multinomial_reg <- nnet::multinom(as.formula(paste("label.0.95 ~ ", paste(colnames(classfied_traces$predict_info_statistics)[1:24], collapse = " + "))), data = classfied_traces$predict_info_statistics)
-
-
-View(coef(multinomial_reg))
