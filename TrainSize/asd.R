@@ -35,7 +35,10 @@ for (i in train_size) {
   d <- run_sim(bg_param_setting,additional_setting,  microsoft_max_10000, NULL, start_point = 2000 - i + 1, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/TrainSize/Markov/")
   
   bg_param_setting <- expand.grid(window_size = window_size, train_policy = train_policy, cluster_type = c("fixed", "quantile"), stringsAsFactors = FALSE)
-  bg_param_setting <- cbind(bg_param_setting, data.frame(name = "MARKOV", name = "Markov(quantile)", cluster_type = "quantile", granularity = granularity, train_size = i, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
+  bg_param_setting <- cbind(bg_param_setting, data.frame(name = "MARKOV", granularity = granularity, train_size = i, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
+  bg_param_setting$name <- paste0("MarkovX(", bg_param_setting$cluster_type, ")")
+  bg_param_setting$window_size_for_xreg <- bg_param_setting$window_size
+  bg_param_setting$window_type_for_xreg <- "avg"
   d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, microsoft_avg_10000, start_point = 2000 - i + 1, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/TrainSize/MarkovX/")
   
   bg_param_setting <- expand.grid(window_size = window_size, train_policy = train_policy, stringsAsFactors = FALSE)
