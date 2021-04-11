@@ -10,7 +10,7 @@ granularity <- c(100 / 16, 100 / 32,  100 / 48, 100 / 64)
 
 window_size <- c(1, 10, 20, 30, 40, 50)
 
-cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.05)
+cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.02, 0.03, 0.05)
 
 additional_setting <- list("cut_off_prob" = cut_off_prob)
 
