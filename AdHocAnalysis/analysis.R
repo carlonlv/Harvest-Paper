@@ -6,7 +6,7 @@ library(glmnet)
 
 load("~/Documents/PDSF Dataset/microsoft_traces_labels.rda")
 
-path = "~/Documents/SimulationResult/AdHocAnalysis/"
+path = "~/Documents/Github/SimulationResult/AdHocAnalysis/"
 
 result_files_prediction_statistics <- list.files(path, pattern = "Paramwise Prediction Statistics", full.names = TRUE, recursive = TRUE)
 result_files_prediction_quantiles <- list.files(path, pattern = "Paramwise Simulation", full.names = TRUE, recursive = TRUE)
@@ -28,14 +28,12 @@ for (j in 1:length(window_size)) {
     string_constraints_quantiles <- grep(i, string_constraints_quantiles, value = TRUE)
   }
 
-  if (length(string_constraints_quantiles) != 1) {
-    stop("Constraints are not unique.")
-  }
+  prediction_quantiles <- do.call(rbind, lapply(string_constraints_quantiles, function(pth) {
+    read.csv(pth, row.names = 1)
+  }))
 
-  prediction_quantiles <- read.csv(string_constraints_quantiles, row.names = 1)
-
-  cut_off_prob <- 1 - 0.95
-  target <- 0.95
+  cut_off_prob <- 1 - 0.97
+  target <- 0.97
   labeled_prediction_information <- label_performance_trace(prediction_quantiles, cut_off_prob, target = target, predict_info_statistics = NULL)
 
   prediction_quantiles <- labeled_prediction_information$predict_info_quantiles
