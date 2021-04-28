@@ -8,7 +8,7 @@ microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:3019)[-c(286,290,328,380,
 
 granularity <- c(100 / 32)
 
-window_size <- c(1, 10, 20, 30, 40, 50)
+window_size <- c(30, 40, 50)
 
 cut_off_prob <- c(0.0001, 0.0005, 0.001, 0.005, 0.01, 0.02, 0.03, 0.05)
 

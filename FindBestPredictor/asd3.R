@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/microsoft_generated_data_3000.rda")
+load("~/Documents/PDSF Dataset/microsoft_generated_data_3000.rda")
 microsoft_generated_data_3000 <- microsoft_generated_data_3000[1:(3000 * 30), ]
 
 ## Finding best predictor using ARIMA, LM, Markov
