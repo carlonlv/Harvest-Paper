@@ -23,5 +23,5 @@ d <- run_sim(bg_param_setting, additional_setting, google_max_memory, google_avg
 
 
 ## Markov
-data.frame(class = "MARKOV", name = "Markov", train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
+bg_param_setting <- cbind(bg_param_setting, data.frame(class = "MARKOV", name = "Markov", train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
 d <- run_sim(bg_param_setting, additional_setting, google_max_memory, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/GoogleMemorySimResult/Markov/")
