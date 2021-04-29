@@ -3,8 +3,8 @@ library(dplyr)
 library(ggplot2)
 
 
-load("~/Documents/GitHub/SimulationResult/datasets/google_production_cpu.rda")
-load("~/Documents/GitHub/SimulationResult/datasets/google_production_memory.rda")
+load("~/Documents/SimulationResult/datasets/google_production_cpu.rda")
+load("~/Documents/SimulationResult/datasets/google_production_memory.rda")
 
 contains_NA <- sapply(1:ncol(google_max_cpu), function(i) {
   any(is.na(google_max_cpu[,i]) | is.na(google_avg_cpu[,i]) | is.na(google_max_memory[,i]) | is.na(google_avg_memory[,i]))
@@ -31,6 +31,8 @@ google_avg_cpu <- do.call(cbind, lapply(1:ncol(google_avg_cpu), function(i){
   (10 ^ (fac[i])) * google_avg_cpu[,i]
 }))
 
+save(google_max_cpu, google_avg_cpu, fac, file = "~/Documents/SimulationResult/datasets/google_production_cpu_scaled.rda")
+
 fac <- sapply(1:ncol(google_max_memory), function(i) {
   max_dat <- max(google_max_memory[,i])
   ten_power <- which((max_dat * 10^(1:100) <= 100) & (max_dat * 10^(1:100) > 10))[1]
@@ -44,3 +46,5 @@ google_max_memory <- do.call(cbind, lapply(1:ncol(google_max_memory), function(i
 google_avg_memory <- do.call(cbind, lapply(1:ncol(google_avg_memory), function(i) {
   (10 ^ (fac[i])) * google_avg_memory[,i]
 }))
+
+save(google_max_memory, google_avg_memory, fac, file = "~/Documents/SimulationResult/datasets/google_production_memory_scaled.rda")
