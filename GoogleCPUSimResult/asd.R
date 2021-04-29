@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/Documents/SimulationResult/datasets/google_production_cpu_scaled.rda")
+load("~/SimulationResult/datasets/google_production_cpu_scaled.rda")
 
 granularity <- c(100 / 32)
 
