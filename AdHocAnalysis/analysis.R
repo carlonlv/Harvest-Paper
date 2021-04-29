@@ -10,14 +10,14 @@ path = "~/Documents/SimulationResult/AdHocAnalysis/"
 
 ## Window Size, Granularity
 window_size <- c(1, 10, 30)
-granularity <- 3.125
+granularity <- 100 / 64
 
 target <- c(0.999, 0.99, 0.98)
 cut_off_prob <- 1 - target
 adjustment_policy <- list(c(0,0), c(1,1), c(1,2))
 
-score_change_after_buffer <- find_score_after_buffer(cut_off_prob, window_size, granularity, 20, adjustment_policy, cores = parallel::detectCores(), path)
-
+score_change_after_buffer <- find_score_after_buffer(cut_off_prob, window_size, granularity, 30, adjustment_policy, cores = parallel::detectCores(), path)
+save(score_change_after_buffer, file = "~/tempdd.rda")
 #extra_margin_lst <- find_extra_margin(target, cut_off_prob, window_size, granularity, adjustment_policy, parallel::detectCores() - 1, path)
 #plot_buffer_needed_to_reach_target(extra_margin_lst, adjustment_policy, window_size, granularity, target, name = "Extra Buffer to Reach Target", path)
 
