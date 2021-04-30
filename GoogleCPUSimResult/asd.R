@@ -14,13 +14,13 @@ bg_param_setting <- expand.grid(granularity = granularity, window_size = window_
 
 
 ## AR1
-bg_param_setting <- cbind(bg_param_setting, data.frame(class = "ARIMA", name = "AR1", extrap_step = 1, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
-d <- run_sim(bg_param_setting, additional_setting, google_max_cpu, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise", "tracewise"), plot_type = "none", result_loc = "~/SimulationResult/GoogleCPUSimResult/AR1/")
+#bg_param_setting <- cbind(bg_param_setting, data.frame(class = "ARIMA", name = "AR1", extrap_step = 1, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
+#d <- run_sim(bg_param_setting, additional_setting, google_max_cpu, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise", "tracewise"), plot_type = "none", result_loc = "~/SimulationResult/GoogleCPUSimResult/AR1/")
 
 
 ## AR1X
-bg_param_setting <- cbind(bg_param_setting, data.frame(class = "ARIMA", name = "AR1X", extrap_step = 1, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
-d <- run_sim(bg_param_setting, additional_setting, google_max_cpu, google_avg_cpu, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/GoogleCPUSimResult/AR1X/")
+#bg_param_setting <- cbind(bg_param_setting, data.frame(class = "ARIMA", name = "AR1X", extrap_step = 1, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
+#d <- run_sim(bg_param_setting, additional_setting, google_max_cpu, google_avg_cpu, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/GoogleCPUSimResult/AR1X/")
 
 
 ## Markov
