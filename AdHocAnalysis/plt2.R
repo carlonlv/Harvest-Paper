@@ -1,8 +1,10 @@
 library("DataCenterSim")
 library("dplyr")
 
-load("~/Documents/GitHub/SimulationResult/datasets/google_production_cpu.rda")
-load("~/Documents/GitHub/SimulationResult/datasets/google_production_memory.rda")
+load("~/Documents/SimulationResult/datasets/google_production_cpu.rda")
+load("~/Documents/SimulationResult/datasets/google_production_memory.rda")
+
+result_path <- "~/Documents/SimulationResult/datasets/"
 
 contains_NA <- sapply(1:ncol(google_max_cpu), function(i) {
   any(is.na(google_max_cpu[,i]) | is.na(google_avg_cpu[,i]) | is.na(google_max_memory[,i]) | is.na(google_avg_memory[,i]))
@@ -14,22 +16,22 @@ google_max_memory <- google_max_memory[,!contains_NA][,1:3000]
 google_avg_memory <- google_avg_memory[,!contains_NA][,1:3000]
 
 tp_google_max_cpu <- do.call(cbind, lapply(1:ncol(google_max_cpu), function(i){
-  DataCenterSim:::convert_frequency_dataset(google_max_cpu[,i], 1, response = "max")
+  DataCenterSim:::convert_frequency_dataset(google_max_cpu[,i], 12, response = "max")
 }))
 colnames(tp_google_max_cpu) <- colnames(google_max_cpu)
 
 tp_google_avg_cpu <-  do.call(cbind, lapply(1:ncol(google_avg_cpu), function(i){
-  DataCenterSim:::convert_frequency_dataset(google_avg_cpu[,i], 1, response = "avg")
+  DataCenterSim:::convert_frequency_dataset(google_avg_cpu[,i], 12, response = "avg")
 }))
 colnames(tp_google_avg_cpu) <- colnames(google_avg_cpu)
 
 tp_google_max_memory <- do.call(cbind, lapply(1:ncol(google_max_memory), function(i){
-  DataCenterSim:::convert_frequency_dataset(google_max_memory[,i], 1, response = "max")
+  DataCenterSim:::convert_frequency_dataset(google_max_memory[,i], 12, response = "max")
 }))
 colnames(tp_google_max_memory) <- colnames(google_max_memory)
 
 tp_google_avg_memory <- do.call(cbind, lapply(1:ncol(google_avg_memory), function(i){
-  DataCenterSim:::convert_frequency_dataset(google_avg_memory[,i], 1, response = "max")
+  DataCenterSim:::convert_frequency_dataset(google_avg_memory[,i], 12, response = "max")
 }))
 colnames(tp_google_avg_memory) <- colnames(google_avg_memory)
 
@@ -42,8 +44,8 @@ plot_heatmap_correlations(dataset1 = tp_google_max_cpu,
                           response2 = NULL,
                           corr_method = "pearson",
                           cores = parallel::detectCores(),
-                          name = paste0("Google (CPU) Max-Max ", "in 5min"),
-                          "~/Documents/")
+                          name = paste0("Google (CPU) Max-Max ", "in 1hr"),
+                          result_path)
 
 ## Avg-to-Avg
 plot_heatmap_correlations(dataset1 = tp_google_avg_cpu,
@@ -54,8 +56,8 @@ plot_heatmap_correlations(dataset1 = tp_google_avg_cpu,
                           response2 = NULL,
                           corr_method = "pearson",
                           cores = parallel::detectCores(),
-                          name = paste0("Google (CPU) Avg-Avg ", "in 5min"),
-                          "~/Documents/")
+                          name = paste0("Google (CPU) Avg-Avg ", "in 1hr"),
+                          result_path)
 
 ## Avg-to-Max
 plot_heatmap_correlations(dataset1 = tp_google_avg_cpu,
@@ -66,8 +68,8 @@ plot_heatmap_correlations(dataset1 = tp_google_avg_cpu,
                           response2 = "max",
                           corr_method = "pearson",
                           cores = parallel::detectCores(),
-                          name = paste0("Google (CPU) Avg-Max ", "in 5min"),
-                          "~/Documents/")
+                          name = paste0("Google (CPU) Avg-Max ", "in 1hr"),
+                          result_path)
 
 
 ## Max-to-Max
@@ -79,8 +81,8 @@ plot_heatmap_correlations(dataset1 = tp_google_max_memory,
                           response2 = NULL,
                           corr_method = "pearson",
                           cores = parallel::detectCores(),
-                          name = paste0("Google (Memory) Max-Max ", "in 5min"),
-                          "~/Documents/")
+                          name = paste0("Google (Memory) Max-Max ", "in 1hr"),
+                          result_path)
 
 ## Avg-to-Avg
 plot_heatmap_correlations(dataset1 = tp_google_avg_memory,
@@ -91,8 +93,8 @@ plot_heatmap_correlations(dataset1 = tp_google_avg_memory,
                           response2 = NULL,
                           corr_method = "pearson",
                           cores = parallel::detectCores(),
-                          name = paste0("Google (Memory) Avg-Avg ", "in 5min"),
-                          "~/Documents/")
+                          name = paste0("Google (Memory) Avg-Avg ", "in 1hr"),
+                          result_path)
 
 ## Avg-to-Max
 plot_heatmap_correlations(dataset1 = tp_google_avg_memory,
@@ -103,6 +105,6 @@ plot_heatmap_correlations(dataset1 = tp_google_avg_memory,
                           response2 = "max",
                           corr_method = "pearson",
                           cores = parallel::detectCores(),
-                          name = paste0("Google (Memory) Avg-Max ", "in 5min"),
-                          "~/Documents/")
+                          name = paste0("Google (Memory) Avg-Max ", "in 1hr"),
+                          result_path)
 
