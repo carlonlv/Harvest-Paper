@@ -1,8 +1,10 @@
 library("DataCenterSim")
 library("dplyr")
 
-load("~/Documents/PDSF Dataset/microsoft_10000.rda")
-load("~/Documents/PDSF Dataset/microsoft_traces_labels.rda")
+load("~/microsoft_10000.rda")
+load("~/SimulationResult/datasets/microsoft_traces_labels.rda")
+
+result_path <- "~/SimulationResult/datasets/"
 
 microsoft_max_10000 <- microsoft_max_10000[, c(1:3019)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638,2021,3012,3018)]]
 microsoft_avg_10000 <- microsoft_avg_10000[, c(1:3019)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638,2021,3012,3018)]]
@@ -17,7 +19,7 @@ tp_microsoft_avg_10000 <-  do.call(cbind, lapply(1:ncol(microsoft_avg_10000), fu
 colnames(tp_microsoft_avg_10000) <- colnames(microsoft_avg_10000)
 
 
-asd <- c("Pooled")
+asd <- c("Delay-insensitive", "Interactive", "Unkown", "Pooled")
 
 ## Delay-insensitive
 for (i in asd) {
@@ -40,7 +42,7 @@ for (i in asd) {
                             corr_method = "pearson",
                             cores = parallel::detectCores(),
                             name = paste0("Max-Max ", "(", i, ") in 1hr"),
-                            "~/Documents/")
+                            result_path)
 
   ## Avg-to-Avg
   plot_heatmap_correlations(dataset1 = temp_microsoft_avg_10000,
@@ -52,7 +54,7 @@ for (i in asd) {
                             corr_method = "pearson",
                             cores = parallel::detectCores(),
                             name = paste0("Avg-Avg ", "(", i, ") in 1hr"),
-                            "~/Documents/")
+                            result_path)
 
   ## Avg-to-Max
   plot_heatmap_correlations(dataset1 = temp_microsoft_avg_10000,
@@ -64,6 +66,6 @@ for (i in asd) {
                             corr_method = "pearson",
                             cores = parallel::detectCores(),
                             name = paste0("Avg-Max ", "(", i, ") in 1hr"),
-                            "~/Documents/")
+                            result_path)
 }
 
