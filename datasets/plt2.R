@@ -1,10 +1,10 @@
 library("DataCenterSim")
 library("dplyr")
 
-load("~/Documents/SimulationResult/datasets/google_production_cpu.rda")
-load("~/Documents/SimulationResult/datasets/google_production_memory.rda")
+load("~/SimulationResult/datasets/google_production_cpu.rda")
+load("~/SimulationResult/datasets/google_production_memory.rda")
 
-result_path <- "~/Documents/SimulationResult/datasets/"
+result_path <- "~/SimulationResult/datasets/"
 
 contains_NA <- sapply(1:ncol(google_max_cpu), function(i) {
   any(is.na(google_max_cpu[,i]) | is.na(google_avg_cpu[,i]) | is.na(google_max_memory[,i]) | is.na(google_avg_memory[,i]))
