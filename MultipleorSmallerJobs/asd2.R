@@ -27,7 +27,7 @@ for (i in window_size) {
   temp_xreg <- lapply(additional_setting[["window_type_for_reg"]], function(j) {
     asd <- do.call(cbind, parallel::mclapply(1:ncol(microsoft_generated_data_3000), function(k) {
       convert_frequency_dataset(microsoft_generated_data_3000[,k], 30 * i, j)
-    }, mc.cores = parallel::detectCores))
+    }, mc.cores = parallel::detectCores()))
     colnames(asd) <- colnames(temp_x)
     rownames(asd) <- rownames(temp_x)
     return(asd)
