@@ -26,7 +26,11 @@ for (i in window_size) {
                             data.frame(class = "MULTINOM", name = "Multinomial(max.avg.min.sd.median)", train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE))
   temp_xreg <- lapply(additional_setting[["window_type_for_reg"]], function(j) {
     asd <- do.call(cbind, parallel::mclapply(1:ncol(microsoft_generated_data_3000), function(k) {
+<<<<<<< HEAD
       convert_frequency_dataset(microsoft_generated_data_3000[,k], 30, j)
+=======
+      convert_frequency_dataset(microsoft_generated_data_3000[,k], 30 * i, j)
+>>>>>>> 967df18820906d5e3c55c165dd565f21d2acf084
     }, mc.cores = parallel::detectCores()))
     colnames(asd) <- colnames(temp_x)
     rownames(asd) <- 1:nrow(asd)
