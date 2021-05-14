@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/PDSF Dataset/microsoft_10000.rda")
+load("~/microsoft_10000.rda")
 
 microsoft_max_10000 <- microsoft_max_10000[1:3000, c(1:3019)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638,2021,3012,3018)]]
 microsoft_avg_10000 <- microsoft_avg_10000[1:3000, c(1:3019)[-c(286,290,328,380,387,398,399,704,706,718,720,738,813,1571,1637,1638,2021,3012,3018)]]
