@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/SimulationResult/GoogleCPUSimResult/AR1/"
+path = "~/Documents/GitHub/SimulationResult/GoogleCPUSimResult/AR1/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
@@ -19,7 +19,7 @@ for (i in result_files) {
   overall_df <- rbind(overall_df, a)
 }
 
-path2 = "~/Documents/SimulationResult/AdHocAnalysis/AR1/"
+path2 = "~/Documents/GitHub/SimulationResult/AdHocAnalysis/AR1/"
 result_files2 <- list.files(path2, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 for (j in result_files2) {
   a <- read.csv(j)

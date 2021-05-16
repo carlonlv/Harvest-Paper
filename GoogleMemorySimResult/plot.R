@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/SimulationResult/GoogleMemorySimResult/"
+path = "~/Documents/GitHub/SimulationResult/GoogleMemorySimResult/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
