@@ -23,7 +23,7 @@ for (i in result_files) {
 for (j in window_size) {
   temp_overall_df <- overall_df[overall_df$window_size == j,]
   plot_sim_charwise(temp_overall_df,
-                    mapping = list("color" = "name"),
+                    mapping = list("color" = "name", "linetype" = "train_size"),
                     adjusted = TRUE,
                     point_or_line = NA,
                     name = paste0("NN Model with Different React Speed at Window Size of ", j, " with Granularity ", granularity),

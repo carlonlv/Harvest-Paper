@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/SimulationResult/NN/"
+path = "~/Documents/GitHub/SimulationResult/VAR/p/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
@@ -26,6 +26,6 @@ for (j in window_size) {
                     mapping = list("color" = "name"),
                     adjusted = TRUE,
                     point_or_line = NA,
-                    name = paste0("NN Model with Different React Speed at Window Size of ", j, " with Granularity ", granularity),
+                    name = paste0("VAR Model with Different React Speed at Window Size of ", j, " with Granularity ", granularity),
                     path)
 }
