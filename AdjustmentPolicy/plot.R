@@ -10,7 +10,7 @@ result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recur
 ### window_size of 1
 window_size <- 30
 #granularity <- c(6.250000, 3.125000, 2.083333, 1.562500)
-granularity <- 1.562500
+granularity <- 3.125
 
 overall_df <- data.frame()
 for (i in result_files) {
