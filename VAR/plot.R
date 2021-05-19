@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/GitHub/SimulationResult/NN/"
+path = "~/Documents/GitHub/SimulationResult/VAR/p/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
@@ -24,8 +24,8 @@ for (j in window_size) {
   temp_overall_df <- overall_df[overall_df$window_size == j,]
   plot_sim_charwise(temp_overall_df,
                     mapping = list("color" = "name"),
-                    adjusted = FALSE,
+                    adjusted = F,
                     point_or_line = NA,
-                    name = paste0("NN Model with Different React Speed at Window Size of ", j, " with Granularity ", granularity),
+                    name = paste0("VAR Model with Different React Speed at Window Size of ", j, " with Granularity ", granularity),
                     path)
 }
