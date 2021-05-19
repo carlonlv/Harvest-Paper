@@ -1,9 +1,9 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/SimulationResult/datasets/google_production_memory.rda")
+load("~/Documents/GitHub/SimulationResult/datasets/google_production_memory.rda")
 
-granularity <- c(100 / 32)
+granularity <- 0
 
 window_size <- c(1, 10, 20, 30, 40, 50)
 
