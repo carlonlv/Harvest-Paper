@@ -5,7 +5,7 @@ path = "~/Documents/GitHub/SimulationResult/StateNum/Markov"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
-window_size <- 50
+window_size <- 1
 granularity <- 3.125
 cluster_type <- "fixed"
 
@@ -23,5 +23,5 @@ plot_sim_charwise(overall_df,
                   mapping = list("color" = "state_num"),
                   adjusted = F,
                   point_or_line = NA,
-                  name = paste0("Different Number of States of Markov Models (quantile partitioning) at Window Size of ", window_size),
+                  name = paste0("Different Number of States of Markov Models (fixed partitioning) at Window Size of ", window_size),
                   path)
