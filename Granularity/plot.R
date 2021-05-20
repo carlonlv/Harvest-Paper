@@ -9,7 +9,7 @@ result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recur
 
 ### window_size of 1
 window_size <- 50
-name <- "AR1"
+name <- "Markov"
 
 overall_df <- data.frame()
 for (i in result_files) {
