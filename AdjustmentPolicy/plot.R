@@ -1,16 +1,16 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/GitHub/SimulationResult/AdjustmentPolicy/"
+path = "~/Documents/GitHub/SimulationResult/AdjustmentPolicy/Markov/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
 ## Baseline max to max, same window sizes
 
 ### window_size of 1
-window_size <- 30
+window_size <- 20
 #granularity <- c(6.250000, 3.125000, 2.083333, 1.562500)
-granularity <- 1.562500
+granularity <- 3.125
 
 overall_df <- data.frame()
 for (i in result_files) {
@@ -30,5 +30,5 @@ plot_sim_charwise(overall_df,
                   mapping = list("color" = "react_speed"),
                   adjusted = TRUE,
                   point_or_line = NA,
-                  name = paste0("AR1 Model with Different React Speed at Window Size of ", window_size, " with Granularity ", granularity),
+                  name = paste0("Markov Model with Different React Speed at Window Size of ", window_size, " with Granularity ", granularity),
                   path)
