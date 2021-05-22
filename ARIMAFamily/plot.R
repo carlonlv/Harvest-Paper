@@ -5,7 +5,7 @@ path = "~/Documents/GitHub/SimulationResult/ARIMAFamily"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
-window_size <- 25
+window_size <- 50
 granularity <- 3.125
 
 overall_df <- data.frame()
