@@ -18,9 +18,13 @@ for (i in result_files) {
   overall_df <- rbind(overall_df, a)
 }
 
-plot_sim_charwise(overall_df,
-                  mapping = list("color" = "window_size", "linetype" = "name"),
-                  adjusted = FALSE,
-                  point_or_line = NA,
-                  name = paste0("Different Models with Google datasets with Granularity ", granularity),
-                  path)
+for (kk in window_size) {
+  temp_df <- overall_df[overall_df$window_size == kk,]
+  plot_sim_charwise(temp_df,
+                    mapping = list("color" = "name"),
+                    adjusted = FALSE,
+                    point_or_line = NA,
+                    name = paste0("Different Models with Google datasets ", " with Window Size ", kk, " and Granularity ", granularity),
+                    path)
+}
+

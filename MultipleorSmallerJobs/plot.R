@@ -2,7 +2,7 @@ library(DataCenterSim)
 library(dplyr)
 library(stringr)
 
-path = "~/Documents/GitHub/SimulationResult/MultipleorSmallerJobs/AR1/"
+path = "~/Documents/GitHub/SimulationResult/MultipleorSmallerJobs/ARIMA/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 

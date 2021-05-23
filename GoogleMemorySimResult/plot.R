@@ -7,7 +7,7 @@ result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recur
 
 ### window_size of 1
 window_size <- c(1, 10, 20, 30, 40, 50)
-granularity <- 3.125
+granularity <- 0
 
 overall_df <- data.frame()
 for (i in result_files) {
@@ -18,9 +18,13 @@ for (i in result_files) {
   overall_df <- rbind(overall_df, a)
 }
 
-plot_sim_charwise(overall_df,
-                  mapping = list("color" = "window_size", "linetype" = "name"),
-                  adjusted = FALSE,
-                  point_or_line = NA,
-                  name = paste0("Different Models with Google datasets with Granularity ", granularity),
-                  path)
+for (kk in window_size) {
+  temp_df <- overall_df[overall_df$window_size == kk,]
+  plot_sim_charwise(temp_df,
+                    mapping = list("color" = "name"),
+                    adjusted = FALSE,
+                    point_or_line = NA,
+                    name = paste0("Different Models with Window Size ", kk, " with Granularity ", granularity),
+                    path)
+}
+

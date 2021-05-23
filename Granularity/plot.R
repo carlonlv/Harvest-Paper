@@ -8,7 +8,7 @@ result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recur
 ## Baseline max to max, same window sizes
 
 ### window_size of 1
-window_size <- 20
+window_size <- 50
 name <- "Markov"
 
 overall_df <- data.frame()
@@ -21,7 +21,7 @@ for (i in result_files) {
 }
 plot_sim_charwise(overall_df,
                   mapping = list("color" = "granularity"),
-                  adjusted = TRUE,
+                  adjusted = F,
                   point_or_line = NA,
-                  name = paste0("Adjusted Different Number of cores at Window Size of ", window_size, " with ", name),
+                  name = paste0("Different Number of cores at Window Size of ", window_size, " with ", name),
                   path)
