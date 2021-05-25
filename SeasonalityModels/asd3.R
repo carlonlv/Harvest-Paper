@@ -11,7 +11,7 @@ window_size <- c(10, 20, 30, 40, 50)
 
 granularity <- 100 / 32
 
-additional_setting <- list("cut_off_prob" = cut_off_prob, "train_args" = list("method" = "arima"))
+additional_setting <- list("cut_off_prob" = cut_off_prob, "train_args" = list("modelfunction" = forecast::Arima, "order" = c(1,0,0)))
 
 window_size <- 1
 freq <- 12
