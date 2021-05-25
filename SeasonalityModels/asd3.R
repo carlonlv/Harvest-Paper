@@ -21,7 +21,7 @@ d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, co
 
 additional_setting <- list("cut_off_prob" = cut_off_prob, "window_type_for_reg" = "avg", "include_response_window_size" = TRUE, "train_args" = list("modelfunction" = forecast::Arima, "order" = c(1,0,0)))
 
-bg_param_setting <- data.frame(class = "STLM", name = "STLMX(res:ARIMA(AUTO).period:12)", granularity = granularity, window_size = window_size, freq = freq, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
+bg_param_setting <- data.frame(class = "STLM", name = "STLM(res:ARIMAX(AUTO).period:12)", granularity = granularity, window_size = window_size, freq = freq, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
 d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, microsoft_avg_10000, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/SeasonalityModels/")
 
 additional_setting <- list("cut_off_prob" = cut_off_prob, "train_args" = list("method" = "arima"))
@@ -31,15 +31,10 @@ d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, co
 
 additional_setting <- list("cut_off_prob" = cut_off_prob, "window_type_for_reg" = "avg", "include_response_window_size" = TRUE, "train_args" = list("method" = "arima"))
 
-bg_param_setting <- data.frame(class = "STLM", name = "STLMX(res:AR1.period:12)", granularity = granularity, window_size = window_size, freq = freq, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
+bg_param_setting <- data.frame(class = "STLM", name = "STLM(res:AR1X.period:12)", granularity = granularity, window_size = window_size, freq = freq, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
 d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, microsoft_avg_10000, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/SeasonalityModels/")
 
 additional_setting <- list("cut_off_prob" = cut_off_prob, "train_args" = list("method" = "ets"))
 
 bg_param_setting <- data.frame(class = "STLM", name = "STLM(res:ETS.period:12)", granularity = granularity, window_size = window_size, freq = freq, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
 d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, NULL, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/SeasonalityModels/")
-
-additional_setting <- list("cut_off_prob" = cut_off_prob, "window_type_for_reg" = "avg", "include_response_window_size" = TRUE, "train_args" = list("method" = "ets"))
-
-bg_param_setting <- data.frame(class = "STLM", name = "STLMX(res:ETS.period:12)", granularity = granularity, window_size = window_size, freq = freq, train_policy = "fixed", train_size = 2000, update_freq = 3, react_speed = "1,2", extrap_step = 1, stringsAsFactors = FALSE)
-d <- run_sim(bg_param_setting, additional_setting, microsoft_max_10000, microsoft_avg_10000, cores = parallel::detectCores(), write_type = c("charwise", "paramwise"), plot_type = "none", result_loc = "~/SimulationResult/SeasonalityModels/")
