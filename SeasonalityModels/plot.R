@@ -1,14 +1,14 @@
 library(DataCenterSim)
 library(dplyr)
 
-path = "~/Documents/GitHub/SimulationResult/VAR/"
+path = "~/Documents/GitHub/SimulationResult/SeasonalityModels/"
 
 result_files <- list.files(path, pattern = "Charwise*", full.names = TRUE, recursive = TRUE)
 
 ## Baseline max to max, same window sizes
 
 ### window_size of 1
-window_size <- c(1, 10, 15, 20, 25, 40, 50)
+window_size <- c(1, 10, 20, 30, 40)
 granularity <- 3.125
 
 overall_df <- data.frame()
