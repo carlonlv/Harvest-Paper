@@ -14,8 +14,11 @@ granularity <- 3.125
 overall_df <- data.frame()
 for (i in result_files) {
   a <- read.csv(i)
-  if (any(a$name  == "Markov")) {
+  if (any(a$name == "Markov")) {
     a <- a[a$state_num == 8,]
+  } else if (any(a$name == "Multinomial")) {
+    a$window_size <- a$window_size / 30
+    a <- a[a$state_num == 10,]
   }
   a <- a[a$window_size %in% window_size,]
   a <- a[, c("name", "granularity", "window_size", "quantile", grep("score", colnames(a), value = TRUE))]
