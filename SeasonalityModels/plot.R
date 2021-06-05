@@ -26,6 +26,6 @@ for (j in window_size) {
                     mapping = list("color" = "name"),
                     adjusted = F,
                     point_or_line = NA,
-                    name = paste0("VAR Model with Different React Speed at Window Size of ", j, " with Granularity ", granularity),
+                    name = paste0("Seasonal Models with Different React Speed at Window Size of ", j, " with Granularity ", granularity),
                     path)
 }
