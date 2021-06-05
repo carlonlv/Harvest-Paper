@@ -1,0 +1,6 @@
+"","name","window_size","extrap_step","response","target","train_policy","type","res_dist","granularity","train_size","update_freq","react_speed","schedule_setting","state_num","freq","quantile","score1.n","score1.w","score1_adj.n","score1_adj.w","score2.n","score2.w","score2_adj.n","score2_adj.w"
+"1","Structual(level)",50,1,"max",0.99,"fixed","level","empirical",3.125,2000,3,"1,2","max_size",NA,NA,0.999,0.914113126756256,52313,0.922350096278716,44662,0.434805591790781,56762,0.382314579793051,56762
+"1.1","Structual(level)",50,1,"max",0.99,"fixed","level","empirical",3.125,2000,3,"1,2","max_size",NA,NA,0.997,0.929614369149532,49996,0.936011634248318,44008,0.388152698263141,56762,0.349633691083939,56762
+"1.2","Structual(level)",50,1,"max",0.99,"fixed","level","empirical",3.125,2000,3,"1,2","max_size",NA,NA,0.99,0.950900941687794,44176,0.954317851064355,40541,0.300238792806546,56762,0.27917844642859,56762
+"1.3","Structual(level)",50,1,"max",0.99,"fixed","level","empirical",3.125,2000,3,"1,2","max_size",NA,NA,0.97,0.964251259513345,37316,0.966256970524639,35148,0.227012981564878,56762,0.215517950369348,56762
+"1.4","Structual(level)",50,1,"max",0.99,"fixed","level","empirical",3.125,2000,3,"1,2","max_size",NA,NA,0.95,0.972163780547014,30895,0.974147265836492,29552,0.178766609384196,56762,0.171890040457215,56762
