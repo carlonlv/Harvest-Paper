@@ -1,16 +1,15 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/SimulationResult/datasets/google_production_cpu.rda")
+load("~/google_generated_data_cpu.rda")
 
-microsoft_generated_data_3000 <- microsoft_generated_data_3000[1:(3000 * 30), ]
+google_generated_data_cpu <- google_generated_data_cpu[, 1:3000]
 
 window_size <- c(1, 5, 10, 15, 20, 25, 30, 40, 50) * 30
 
 window_type_for_reg <- c("max", "avg", "min", "sd", "median")
 
-## 8, 16, 32, 64 Cores
-granularity <- c(100 / 16, 100 / 32,  100 / 48, 100 / 64)
+granularity <- c(100 / 32,  100 / 48)
 
 cut_off_prob <- c(0.0001, 0.0003, 0.0005, 0.001, 0.003, 0.005, 0.01, 0.03, 0.05)
 additional_setting <- list("cut_off_prob" = cut_off_prob, "include_response_window_size" = TRUE, "window_type_for_reg" = window_type_for_reg)
