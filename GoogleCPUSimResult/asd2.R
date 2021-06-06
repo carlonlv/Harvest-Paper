@@ -22,7 +22,7 @@ d <- run_sim(bg_param_setting,
              google_generated_data_cpu,
              google_generated_data_cpu,
              start_point = 1,
-             cores = parallel::detectCores(),
+             cores = 28,
              write_type = c("charwise", "paramwise"),
              plot_type = "none",
              result_loc = "~/SimulationResult/SmartHarvestComparison/Multinom/")
