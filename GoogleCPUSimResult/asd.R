@@ -6,6 +6,8 @@ load("~/SimulationResult/datasets/google_production_cpu.rda")
 google_max_cpu <- google_max_cpu[1:3000,1:3000]
 google_avg_cpu <- google_avg_cpu[1:3000,1:3000]
 
+google_max_cpu[1:3000, 1:3000] <- 100
+
 granularity <- c(100 / 32)
 
 window_size <- c(1, 10, 20, 30, 40, 50)
