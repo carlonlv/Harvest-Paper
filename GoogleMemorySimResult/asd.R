@@ -3,6 +3,9 @@ library(dplyr)
 
 load("~/SimulationResult/datasets/google_production_memory.rda")
 
+google_max_memory <- google_max_memory[1:3000,1:3000]
+google_avg_memory <- google_avg_memory[1:3000,1:3000]
+
 granularity <- 0
 
 window_size <- c(1, 10, 20, 30, 40, 50)
