@@ -26,6 +26,6 @@ d <- run_sim(bg_param_setting,
              cores = parallel::detectCores(),
              write_type = c("charwise", "paramwise"),
              plot_type = "none",
-             result_loc = "~/SimulationResult/SmartHarvestComparison/Multinom/")
+             result_loc = "~/SimulationResult/GoogleMemorySimResult/Multinom/")
 
 
