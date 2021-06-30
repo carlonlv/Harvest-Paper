@@ -9,8 +9,7 @@ window_size <- c(1, 5, 10, 15, 20, 25, 30, 40, 50) * 30
 
 window_type_for_reg <- c("max", "avg", "min", "sd", "median")
 
-## 8, 16, 32, 64 Cores
-granularity <- c(100 / 32,  100 / 48)
+granularity <- 0
 
 cut_off_prob <- c(0.0001, 0.0003, 0.0005, 0.001, 0.003, 0.005, 0.01, 0.03, 0.05)
 additional_setting <- list("cut_off_prob" = cut_off_prob, "include_response_window_size" = TRUE, "window_type_for_reg" = window_type_for_reg)
