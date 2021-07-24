@@ -1,7 +1,7 @@
 library(DataCenterSim)
 library(dplyr)
 
-load("~/google_generated_data_cpu.rda")
+load("~/Documents/PDSF Dataset/google_generated_data_cpu.rda")
 
 google_generated_data_cpu <- google_generated_data_cpu[, 1:3000]
 
@@ -22,7 +22,7 @@ d <- run_sim(bg_param_setting,
              google_generated_data_cpu,
              google_generated_data_cpu,
              start_point = 1,
-             cores = 28,
+             cores = parallel::detectCores(),
              write_type = c("charwise", "paramwise"),
              plot_type = "none",
              result_loc = "~/SimulationResult/SmartHarvestComparison/Multinom/")
