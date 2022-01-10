@@ -7,6 +7,7 @@ import gzip
 import json
 import os
 import pickle
+import re
 import time
 from multiprocessing import Manager
 
@@ -34,11 +35,7 @@ def convert_to_df(lines):
     for line in lines:
         temp_df.append(json.loads(line))
     temp_df = pd.json_normalize(temp_df, max_level=3)
-    temp_df["collection_id"] = temp_df["collection_id"].astype(int)
-    temp_df["instance_index"] = temp_df["instance_index"].astype(int)
-    temp_df["priority"] = temp_df["priority"].astype(int)
-    temp_df["type"] = temp_df["type"].astype(int)
-    temp_df["collection_type"] = temp_df["collection_type"].astype(int)
+    temp_df = temp_df.astype({ col: COL_DATATYPE[col] for col in COL_DATATYPE if col in temp_df.columns})
     return temp_df
 
 def write_df(df, target_fp):
@@ -125,9 +122,46 @@ if __name__ == "__main__":
     TARGET_BATCH_SELECTED_JOB_FILE_NAME = "selected_job_events_batch.pkl"
     TARGET_PRODUCTION_SELECTED_JOB_FILE_NAME = "selected_job_events_production.pkl"
 
+    COL_DATATYPE = {
+        "index": "int64",
+        "time": "int64",
+        "type": "int32",
+        "collection_id": "int64",
+        "collection_type": "int32",
+        "priority": "int32",
+        "user": "str",
+        "collection_name": "str",
+        "collection_logical_name": "str",
+        "start_after_collection_ids": "int64",
+        "scheduling_class": "int32",
+        "missing_type": "int32",
+        "alloc_collection_id": "int64",
+        "parent_collection_id": "int64",
+        "max_per_machine": "int32",
+        "max_per_switch": "int32",
+        "vertical_scaling": "int32",
+        "scheduler": "int32",
+        "instance_index": "int32",
+        "machine_id": "int64",
+        "alloc_instance_index": "int32",
+        "resource_request.cpus": "double",
+        "resource_request.memory": "double",
+        "start_time": "int64",
+        "end_time": "int64",
+        "average_usage.cpus": "double",
+        "average_usage.memory": "double",
+        "maximum_usage.cpus": "double",
+        "maximum_usage.memory": "double",
+        "random_sample_usage.cpus": "double",
+        "random_sample_usage.memory": "double",
+        "assigned_memory": "double",
+        "page_cache_memory": "double",
+        "sample_rate": "int32"
+    }
+
     ## Section 1: Job Events
     st = time.time()
-    job_events = sorted(os.listdir(PATH + "job_events"))
+    job_events = sorted(list(filter(re.compile(r"\w+-\d+\.json\.gz").match, os.listdir(PATH + "job_events"))))
 
     with Manager() as manager:
         selected_batch_job_ids = manager.list()
@@ -155,7 +189,7 @@ if __name__ == "__main__":
     with open(PATH + TARGET_PRODUCTION_SELECTED_JOB_FILE_NAME, "rb") as f:
         selected_production_job_ids = pickle.load(f)
     st = time.time()
-    task_events = sorted(os.listdir(PATH + "task_events"))
+    task_events = sorted(list(filter(re.compile(r"\w+-\d+\.json\.gz").match, os.listdir(PATH + "task_events"))))
     process_map(process_task_events, task_events, max_workers = CORES)
     et = time.time()
     print("Processing Task Events took" , (et - st) / 60," minutes.")
@@ -166,7 +200,7 @@ if __name__ == "__main__":
     with open(PATH + TARGET_PRODUCTION_SELECTED_JOB_FILE_NAME, "rb") as f:
         selected_production_job_ids = pickle.load(f)
     st = time.time()
-    task_usage = sorted(os.listdir(PATH + "task_usage"))
+    task_usage = sorted(list(filter(re.compile(r"\w+-\d+\.json\.gz").match, os.listdir(PATH + "task_usage"))))
     process_map(process_task_usage, task_usage, max_workers = CORES)
     et = time.time()
     print("Processing Task Usage took" , (et - st) / 60," minutes.")
