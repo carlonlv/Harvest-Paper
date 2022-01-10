@@ -9,6 +9,7 @@ import os
 import pickle
 import re
 import time
+import math
 from multiprocessing import Manager
 
 import pandas as pd
@@ -35,6 +36,8 @@ def convert_to_df(lines):
     for line in lines:
         temp_df.append(json.loads(line))
     temp_df = pd.json_normalize(temp_df, max_level=3)
+    temp_df.loc[:,[col for col in COL_NAN_NEGETIVE_ONE if col in temp_df.columns]] = temp_df.loc[:,[col for col in COL_NAN_NEGETIVE_ONE if col in temp_df.columns]].replace(math.nan, -1)
+    temp_df.loc[:,[col for col in COL_NAN_NEGETIVE_TWO if col in temp_df.columns]] = temp_df.loc[:,[col for col in COL_NAN_NEGETIVE_TWO if col in temp_df.columns]].replace(math.nan, -2)
     temp_df = temp_df.astype({ col: COL_DATATYPE[col] for col in COL_DATATYPE if col in temp_df.columns})
     return temp_df
 
@@ -122,6 +125,20 @@ if __name__ == "__main__":
     TARGET_BATCH_SELECTED_JOB_FILE_NAME = "selected_job_events_batch.pkl"
     TARGET_PRODUCTION_SELECTED_JOB_FILE_NAME = "selected_job_events_production.pkl"
 
+    COL_NAN_NEGETIVE_ONE = [
+        "missing_type",
+        "alloc_collection_id",
+        "parent_collection_id",
+        "max_per_machine",
+        "max_per_switch",
+        "vertical_scaling",
+        "scheduler"
+        ]
+
+    COL_NAN_NEGETIVE_TWO = [
+        "alloc_instance_index"
+    ]
+
     COL_DATATYPE = {
         "index": "int64",
         "time": "int64",
@@ -132,7 +149,6 @@ if __name__ == "__main__":
         "user": "str",
         "collection_name": "str",
         "collection_logical_name": "str",
-        "start_after_collection_ids": "int64",
         "scheduling_class": "int32",
         "missing_type": "int32",
         "alloc_collection_id": "int64",
