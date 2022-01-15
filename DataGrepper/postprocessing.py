@@ -98,10 +98,8 @@ def process_task_usage(file_name):
         if not l:
             break
         tt_df = convert_to_df(l)
-        batch_df = tt_df.loc[tt_df["collection_id"].isin(selected_batch_job_ids) & tt_df["instance_index"] == 0]
         production_df = tt_df.loc[tt_df["collection_id"].isin(selected_production_job_ids) & tt_df["instance_index"] == 0]
 
-        write_df(batch_df, PATH + "parsed_task_usage/" + TARGET_BATCH_TASK_USAGE_FILE_NAME)
         write_df(production_df, PATH + "parsed_task_usage/" + TARGET_PRODUCTION_TASK_USAGE_FILE_NAME)
     os.remove(file_name)
 
@@ -111,7 +109,7 @@ if __name__ == "__main__":
 
     CORES = 28
 
-    MAX_READ_SIZE = 1 * (1024 ** 3)
+    MAX_READ_SIZE = 250 * (1024 ** 2)
 
     TARGET_BATCH_JOB_FILE_NAME = "job_events_batch_df.csv"
     TARGET_PRODUCTION_JOB_FILE_NAME = "job_events_production_df.csv"
@@ -132,8 +130,9 @@ if __name__ == "__main__":
         "max_per_machine",
         "max_per_switch",
         "vertical_scaling",
-        "scheduler"
-        ]
+        "scheduler",
+        "machine_id"
+    ]
 
     COL_NAN_NEGETIVE_TWO = [
         "alloc_instance_index"
@@ -211,8 +210,6 @@ if __name__ == "__main__":
     print("Processing Task Events took" , (et - st) / 60," minutes.")
 
     ## Section 3: Task Usage
-    with open(PATH + TARGET_BATCH_SELECTED_JOB_FILE_NAME, "rb") as f:
-        selected_batch_job_ids = pickle.load(f)
     with open(PATH + TARGET_PRODUCTION_SELECTED_JOB_FILE_NAME, "rb") as f:
         selected_production_job_ids = pickle.load(f)
     st = time.time()
